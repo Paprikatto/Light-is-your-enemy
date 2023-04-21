@@ -21,12 +21,20 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        //turn off inputs if level state is not playing
+        if (LevelManager.instance.levelState != LevelState.Playing)
+        {
+            rb.bodyType = RigidbodyType2D.Static;
+            return;
+        }
+
         moveInput = Input.GetAxis("Horizontal");
         isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x,transform.position.y - 0.5f), 0.2f, groundMask);
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
+
 
         if (moveInput < 0)
         {
@@ -39,7 +47,20 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (LevelManager.instance.levelState != LevelState.Playing) return;
+
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "WinCollider")
+        {
+            LevelManager.instance.levelState = LevelState.Won;
+        }else if (collision.tag == "GameOverCollider")
+        {
+            LevelManager.instance.levelState = LevelState.Lost;
+        }
     }
 }
