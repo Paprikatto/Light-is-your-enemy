@@ -13,6 +13,8 @@ public enum LevelState
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+
+    public Player player;
     [SerializeField]private LevelState state;
 
     [SerializeField] private GameObject lossUi;

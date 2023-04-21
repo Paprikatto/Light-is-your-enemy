@@ -317,7 +317,6 @@ MonoBehaviour:
   inputImage: {fileID: 750304830766101784}
   gameObjects:
   - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &750304832069129226
 GameObject:
   m_ObjectHideFlags: 0

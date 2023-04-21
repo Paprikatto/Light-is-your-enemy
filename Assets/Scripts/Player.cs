@@ -7,17 +7,23 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
-    private Rigidbody2D rb;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private LayerMask groundMask;
+
+    private Rigidbody2D rb;
+    private Animator animator;
 
     private float moveInput;
 
-    [SerializeField] private LayerMask groundMask;
 
-
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+    private void Start()
+    {
+        LevelManager.instance.player = this;
     }
 
     private void Update()
@@ -45,6 +51,18 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
+
+        #region Animations
+
+        if (moveInput != 0)
+        {
+            animator.SetBool("Walking",  true);
+        }
+        else
+        {
+            animator.SetBool("Walking", false);
+        }
+        #endregion
 
         #region MovingPlatforms
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundMask);
@@ -74,6 +92,7 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         
     }
+
     #region Win and Lose
 
     private void OnTriggerEnter2D(Collider2D collision)

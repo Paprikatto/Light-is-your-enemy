@@ -1262,6 +1262,10 @@ PrefabInstance:
       value: Trigger
       objectReference: {fileID: 0}
     - target: {fileID: 750304831863269303, guid: d3adffb6abc4ae14c83985a734ae33ed, type: 3}
+      propertyPath: gameObjects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 750304831863269303, guid: d3adffb6abc4ae14c83985a734ae33ed, type: 3}
       propertyPath: gameObjects.Array.data[0]
       value: 
       objectReference: {fileID: 838615849}
