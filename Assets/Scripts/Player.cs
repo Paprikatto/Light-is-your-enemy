@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        moveInput = Input.GetAxis("Horizontal");
+        moveInput = Input.GetAxisRaw("Horizontal");
         isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x,transform.position.y - 0.5f), 0.2f, groundMask);
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
