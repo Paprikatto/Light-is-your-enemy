@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private LayerMask groundMask;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,6 +45,27 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
+
+        #region MovingPlatforms
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundMask);
+        if(hit.collider != null)
+        {
+            if (hit.collider.tag == "MovingPlatform")
+            {
+                transform.SetParent(hit.transform.parent);
+                transform.localScale = Vector3.one;
+            }
+            else
+            {
+                transform.SetParent(null);
+            }
+        }
+        else if(transform.parent != null)
+        {
+            transform.SetParent(null);
+        }
+
+        #endregion
     }
     void FixedUpdate()
     {
@@ -52,6 +74,7 @@ public class Player : MonoBehaviour
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         
     }
+    #region Win and Lose
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -63,4 +86,5 @@ public class Player : MonoBehaviour
             LevelManager.instance.levelState = LevelState.Lost;
         }
     }
+    #endregion
 }
