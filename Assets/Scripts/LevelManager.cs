@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]private LevelState state;
 
     [SerializeField] private GameObject lossUi;
+    [SerializeField] private AudioSource lossSound;
     [SerializeField] private GameObject winUi;
 
     public LevelState levelState
@@ -55,9 +56,11 @@ public class LevelManager : MonoBehaviour
         if(state == LevelState.Lost)
         {
             lossUi.SetActive(true);
+            lossSound.Play();
         }else if(state == LevelState.Won)
         {
-            winUi.SetActive(true);
+            //winUi.SetActive(true);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
     private void Update()

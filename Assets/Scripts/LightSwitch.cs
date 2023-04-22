@@ -9,10 +9,23 @@ public class LightSwitch : MonoBehaviour
     [SerializeField] private bool active;
     [SerializeField] private Image inputImage;
     [SerializeField] private List<GameObject> gameObjects;
+    private AudioSource sound;
 
     private void Start()
     {
         inputImage.enabled = false;
+        sound = GetComponent<AudioSource>();
+    }
+    private void Update()
+    {
+        if(active && Input.GetKeyDown(KeyCode.E))
+        {
+            sound.Play();
+            foreach(GameObject g in gameObjects)
+            {
+                g.SetActive(!g.activeSelf);
+            }
+        }
     }
     private void Activate()
     {
@@ -40,14 +53,4 @@ public class LightSwitch : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(active && Input.GetKeyDown(KeyCode.E))
-        {
-            foreach(GameObject g in gameObjects)
-            {
-                g.SetActive(!g.activeSelf);
-            }
-        }
-    }
 }

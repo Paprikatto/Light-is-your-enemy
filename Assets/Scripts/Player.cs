@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+
 
 public class Player : MonoBehaviour
 {
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour
         //turn off inputs if level state is not playing
         if (LevelManager.instance.levelState != LevelState.Playing)
         {
-            rb.bodyType = RigidbodyType2D.Static;
+            //rb.bodyType = RigidbodyType2D.Static;
             return;
         }
 
