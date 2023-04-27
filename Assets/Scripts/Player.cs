@@ -9,7 +9,31 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
+    [SerializeField] private int jumps = 1;
     [SerializeField] private bool isGrounded;
+    private bool IsGrounded
+    {
+        get
+        {
+            return isGrounded;
+        }
+        set
+        {
+            if (value)
+            {
+                jumps = 1;
+                isGrounded = value;
+            }
+            else
+            {
+                if (isGrounded)
+                {
+                    jumps = 0;
+                }
+                isGrounded = value;
+            }
+        }
+    }
     [SerializeField] private LayerMask groundMask;
 
     private Rigidbody2D rb;
@@ -38,9 +62,11 @@ public class Player : MonoBehaviour
         }
 
         moveInput = Input.GetAxisRaw("Horizontal");
-        isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x,transform.position.y - 0.5f), 0.2f, groundMask);
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        IsGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x,transform.position.y - 0.5f), 0.2f, groundMask);
+        if (jumps > 0 && Input.GetKeyDown(KeyCode.Space))
         {
+            jumps--;
+            rb.velocity = new Vector2(rb.velocity.x,0);
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
 
@@ -105,6 +131,10 @@ public class Player : MonoBehaviour
         }else if (collision.tag == "GameOverCollider")
         {
             LevelManager.instance.levelState = LevelState.Lost;
+        }else if(collision.tag == "DoubleJump")
+        {
+            jumps++;
+            Destroy(collision.gameObject);
         }
     }
     #endregion
