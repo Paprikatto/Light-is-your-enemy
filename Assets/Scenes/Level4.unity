@@ -1445,14 +1445,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4896483490922095196, guid: 05392131d26af7c40a824782e4ca7f91, type: 3}
-      propertyPath: m_PointLightInnerRadius
-      value: 0.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896483490922095196, guid: 05392131d26af7c40a824782e4ca7f91, type: 3}
-      propertyPath: m_PointLightOuterRadius
-      value: 7.37
-      objectReference: {fileID: 0}
     - target: {fileID: 4896483490924061760, guid: 05392131d26af7c40a824782e4ca7f91, type: 3}
       propertyPath: m_Name
       value: Enemy
